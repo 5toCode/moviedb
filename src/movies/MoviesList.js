@@ -3,10 +3,10 @@ import { Movie } from './Movie';
 import { Filter } from '../Filter';
 
 const API_URL =
-  'https://api.themoviedb.org/3/discover/movie?api_key=7c48ec23448455a54bcd5654893dd68c&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate';
+  'https://api.themoviedb.org/3/discover/movie?language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate&api_key=';
 
 const CONFIG_URL =
-  'https://api.themoviedb.org/3/configuration?api_key=7c48ec23448455a54bcd5654893dd68c';
+  'https://api.themoviedb.org/3/configuration?api_key=';
 
 export function MoviesList() {
   const [filter, setFilter] = useState('');
@@ -15,7 +15,7 @@ export function MoviesList() {
 
   const getMovies = async () => {
     try {
-      const res = await fetch(API_URL);
+      const res = await fetch(API_URL + process.env.REACT_APP_MOVIE_API);
       const movies = await res.json();
       setMovies(movies.results);
     } catch (e) {
@@ -25,7 +25,7 @@ export function MoviesList() {
 
   const getConfig = async () => {
     try {
-      const res = await fetch(CONFIG_URL);
+      const res = await fetch(CONFIG_URL + process.env.REACT_APP_MOVIE_API);
       const config = await res.json();
       setConfig(config);
     } catch (e) {
